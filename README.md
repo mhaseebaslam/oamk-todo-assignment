@@ -63,7 +63,7 @@ The application is built using modern web development technologies and follows t
 
 ## Live Demo
 
-A live demo of the application is available [here](#).
+A live demo of the application is available [here](https://mhaseebaslam.github.io/oamk-todo-assignment/).
 
 ## Feedback/Suggestions
 
