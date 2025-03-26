@@ -28,16 +28,18 @@ const renderTask = (task) => {
 
     // Add event listener for delete task
     const deleteButton = li.querySelector('.delete-task');
-    deleteButton.addEventListener('click', async (event) => {
-        event.preventDefault();
-        try {
-            await todos.removeTask(task.getId());
-            li.remove();
-        } catch (error) {
-            console.error(error);
-            alert('Failed to delete task. Please try again.');
-        }
-    });
+    if (deleteButton) {
+        deleteButton.addEventListener('click', async (event) => {
+            event.preventDefault();
+            try {
+                await todos.removeTask(task.getId());
+                li.remove();
+            } catch (error) {
+                console.error(error);
+                alert('Failed to delete task. Please try again.');
+            }
+        });
+    }
 }
 
 // Function to fetch and render tasks

@@ -3,19 +3,19 @@ GET http://localhost:3001/
 Accept: application/json
 Host: localhost:3001
 
+### Create a new task
 POST http://localhost:3001/new
 Content-Type: application/json
 Accept: application/json
 Host: localhost:3001
-Accept: application/json
 
 {
     "description": "TEST TASK",
     "dueDate": "2023-12-31",
     "priority": "high"
 }
+
+### Delete a task
 DELETE http://localhost:3001/delete/1
 Accept: application/json
 Host: localhost:3001
-DELETE http://localhost:3001/delete/1
-Accept: application/json

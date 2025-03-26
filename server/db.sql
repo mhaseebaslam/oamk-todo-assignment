@@ -5,11 +5,6 @@ CREATE TABLE task (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE TRIGGER update_timestamp
-BEFORE UPDATE ON task
-FOR EACH ROW
-EXECUTE PROCEDURE update_timestamp();
-
 CREATE OR REPLACE FUNCTION update_timestamp()
 RETURNS TRIGGER AS $$
 BEGIN
@@ -17,6 +12,11 @@ BEGIN
     RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
+
+CREATE TRIGGER update_timestamp
+BEFORE UPDATE ON task
+FOR EACH ROW
+EXECUTE PROCEDURE update_timestamp();
 
 INSERT INTO task (description) VALUES ('My test task');
 INSERT INTO task (description) VALUES ('My another test task');

@@ -1,4 +1,19 @@
-import { Task } from './Tasks.js';
+class Task {
+    constructor(id, description) {
+        this.id = id;
+        this.description = description;
+    }
+
+    getId() {
+        return this.id;
+    }
+
+    getDescription() {
+        return this.description;
+    }
+}
+
+export { Task };
 
 class Todos {
     #tasks = [];
