@@ -1,8 +1,317 @@
-header {
-    margin: 1em 0;
-  }
-  
-  form {
-    margin-bottom: 1em;
-  }
-    
+:root {
+  color-scheme: light;
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: #202b2a;
+  background: #f5f6f8;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  --ink: #202b2a;
+  --muted: #88918f;
+  --green: #2e6b5b;
+  --line: #edf0ef;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  min-width: 320px;
+  min-height: 100vh;
+  margin: 0;
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(226, 237, 232, .66), transparent 46%),
+    #f5f6f8;
+}
+
+button, input { font: inherit; }
+button { -webkit-tap-highlight-color: transparent; }
+
+.app-shell {
+  width: min(100% - 40px, 760px);
+  margin: 0 auto;
+  padding: 28px 0 44px;
+}
+
+.topbar, .brand, .topbar-note, .task-form, .list-toolbar, .list-heading,
+.filter-tabs, .task-row, .task-copy, .list-footer {
+  display: flex;
+  align-items: center;
+}
+
+.topbar { justify-content: space-between; }
+.brand {
+  gap: 10px;
+  color: var(--ink);
+  font: 800 20px/1 ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  letter-spacing: -1px;
+  text-decoration: none;
+}
+
+.brand-mark {
+  display: grid;
+  width: 31px;
+  height: 31px;
+  place-items: center;
+  border-radius: 10px;
+  background: var(--green);
+  box-shadow: 0 4px 10px #2e6b5b2b;
+}
+
+.brand-mark svg, .input-mark svg {
+  width: 17px;
+  fill: none;
+  stroke: #fff;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 2.4;
+}
+
+.topbar-note {
+  gap: 8px;
+  color: #747e7b;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #73ad8a;
+  box-shadow: 0 0 0 3px #73ad8a20;
+}
+
+.intro { padding: 73px 0 31px; }
+.eyebrow {
+  margin: 0 0 13px;
+  color: #80918b;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.65px;
+}
+
+h1, h2, p { margin-top: 0; }
+h1 {
+  max-width: 620px;
+  margin-bottom: 12px;
+  font: 700 clamp(34px, 6vw, 48px)/1.16 ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  letter-spacing: -2.25px;
+}
+
+h1 span { color: var(--green); }
+.intro-copy {
+  margin-bottom: 0;
+  color: #7a8582;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.task-card {
+  overflow: hidden;
+  border: 1px solid #e8ecea;
+  border-radius: 17px;
+  background: #fff;
+  box-shadow: 0 18px 55px #253c3510, 0 2px 6px #253c3508;
+}
+
+.task-form {
+  gap: 13px;
+  min-height: 77px;
+  padding: 15px 19px;
+  border-bottom: 1px solid var(--line);
+}
+
+.input-mark {
+  display: grid;
+  width: 35px;
+  height: 35px;
+  flex: 0 0 auto;
+  place-items: center;
+  border: 1px solid #e9eeeb;
+  border-radius: 11px;
+  background: #f8faf9;
+}
+
+.input-mark svg { stroke: #788c84; }
+.task-form input {
+  width: 100%;
+  min-width: 0;
+  padding: 11px 0;
+  border: 0;
+  outline: 0;
+  color: var(--ink);
+  font-size: 14px;
+}
+
+.task-form input::placeholder { color: #a4adaa; }
+.task-form:focus-within .input-mark { border-color: #b6d0c4; background: #f2f8f4; }
+.add-button {
+  display: inline-flex;
+  min-height: 39px;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 13px;
+  padding: 0 13px;
+  border: 0;
+  border-radius: 9px;
+  background: var(--green);
+  color: #fff;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 700;
+  transition: background .18s ease, transform .18s ease;
+}
+
+.add-button:hover { background: #245849; transform: translateY(-1px); }
+.add-button:focus-visible, .filter-button:focus-visible, .delete-button:focus-visible, .task-checkbox:focus-visible {
+  outline: 3px solid #91b6a8;
+  outline-offset: 3px;
+}
+
+.add-arrow { color: #d3e2dc; font-size: 17px; line-height: 1; }
+.list-toolbar { justify-content: space-between; padding: 19px 22px 14px; }
+.list-heading { gap: 9px; }
+.list-heading h2 {
+  margin: 0;
+  font: 700 14px/1 ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  letter-spacing: -.2px;
+}
+
+.task-count {
+  display: grid;
+  min-width: 21px;
+  height: 21px;
+  padding: 0 6px;
+  place-items: center;
+  border-radius: 7px;
+  background: #f1f4f2;
+  color: #71807a;
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.filter-tabs { gap: 3px; padding: 3px; border-radius: 9px; background: #f5f7f6; }
+.filter-button {
+  min-height: 27px;
+  padding: 0 10px;
+  border: 0;
+  border-radius: 7px;
+  background: transparent;
+  color: #828b88;
+  cursor: pointer;
+  font-size: 10px;
+  font-weight: 600;
+}
+
+.filter-button.is-active {
+  background: #fff;
+  color: #2b6655;
+  box-shadow: 0 1px 3px #172f2414;
+}
+
+.task-list { min-height: 76px; margin: 0; padding: 0 22px; list-style: none; }
+.task-row {
+  gap: 13px;
+  min-height: 59px;
+  border-bottom: 1px solid #f0f2f1;
+  animation: arrive .22s ease both;
+}
+
+.task-row:last-child { border-bottom-color: transparent; }
+.task-checkbox {
+  width: 17px;
+  height: 17px;
+  flex: 0 0 auto;
+  margin: 0;
+  accent-color: var(--green);
+  cursor: pointer;
+}
+
+.task-copy { min-width: 0; flex: 1; }
+.task-text {
+  overflow-wrap: anywhere;
+  color: #34403d;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.task-row.is-completed .task-text { color: #a1a9a6; text-decoration: line-through; text-decoration-color: #aeb8b3; }
+.delete-button {
+  display: grid;
+  width: 32px;
+  height: 32px;
+  flex: 0 0 auto;
+  place-items: center;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: #a5aeaa;
+  cursor: pointer;
+  opacity: 0;
+  transition: background .16s ease, color .16s ease, opacity .16s ease;
+}
+
+.task-row:hover .delete-button, .delete-button:focus-visible { opacity: 1; }
+.delete-button:hover { background: #fff1ef; color: #bd665d; }
+.delete-button svg { width: 15px; fill: none; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.7; }
+
+.empty-state {
+  display: grid;
+  min-height: 145px;
+  align-content: center;
+  justify-items: center;
+  color: #97a19d;
+  text-align: center;
+}
+
+.empty-icon { margin-bottom: 9px; color: #a1b5ab; font-size: 23px; }
+.empty-state strong { color: #586762; font: 700 12px ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+.empty-state span:last-child { margin-top: 5px; font-size: 11px; }
+
+.list-footer {
+  gap: 12px;
+  min-height: 55px;
+  margin: 4px 22px 0;
+  border-top: 1px solid var(--line);
+  color: #89938f;
+  font-size: 10px;
+}
+
+.progress-track { overflow: hidden; height: 4px; flex: 1; border-radius: 9px; background: #edf1ef; }
+.progress-fill { display: block; width: 0; height: 100%; border-radius: inherit; background: #63a181; transition: width .3s ease; }
+.progress-label { min-width: 67px; color: #61716a; text-align: right; font-weight: 600; }
+.page-note { margin: 22px 0 0; color: #98a19e; font-size: 11px; text-align: center; }
+.page-note span { padding-right: 4px; color: #78a28e; }
+.status-message { min-height: 18px; margin: 9px 0 0; color: #557e69; font-size: 12px; text-align: center; }
+.status-message.is-error { color: #b2574d; }
+.sr-only {
+  position: absolute;
+  overflow: hidden;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  border: 0;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  clip-path: inset(50%);
+}
+
+@keyframes arrive { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+@media (max-width: 540px) {
+  .app-shell { width: min(100% - 28px, 760px); padding-top: 20px; }
+  .topbar-note { font-size: 10px; }
+  .intro { padding: 61px 0 24px; }
+  h1 { letter-spacing: -1.7px; }
+  .intro-copy { max-width: 330px; font-size: 13px; }
+  .task-form { gap: 10px; padding: 13px; }
+  .add-button { gap: 7px; padding: 0 10px; }
+  .list-toolbar { padding: 16px 14px 12px; }
+  .filter-button { padding: 0 8px; }
+  .task-list { padding: 0 14px; }
+  .list-footer { gap: 8px; margin-right: 14px; margin-left: 14px; font-size: 9px; }
+  .progress-label { min-width: 60px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+}

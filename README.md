@@ -1,141 +1,52 @@
-# OAMK TODO Assignment
+# Daymark
 
-## Table of Contents
-
-- [Introduction](#introduction)
-- [Features](#features)
-- [Installation](#installation)
-- [Setting Up Your Environment Variables](#setting-up-your-environment-variables)
-- [Creating the PostgreSQL Database](#creating-the-postgresql-database)
-- [Usage](#usage)
-- [Logic Behind the Code](#logic-behind-the-code)
-- [Live Demo](#live-demo)
-- [Feedback/Suggestions](#feedbacksuggestions)
-- [How to Contribute](#how-to-contribute)
-- [License](#license)
-
-## Introduction
-
-Welcome to the OAMK TODO Assignment repository! This project features a simple yet effective to-do list application created for an assignment at OAMK. The app helps users manage their daily tasks by allowing them to add, edit, and delete tasks with ease.
+Daymark is a simple, responsive task list for keeping your day focused. The same interface runs as a static site or with the optional Express and PostgreSQL backend.
 
 ## Features
 
-- **Add New Tasks:** Easily add new tasks to your to-do list to keep track of what needs to be done.
-- **Edit Existing Tasks:** Modify the details of tasks that are already on your list to keep information up-to-date.
-- **Delete Tasks:** Remove tasks that you no longer need to focus on.
-- **Mark Tasks as Completed:** Keep track of your progress by marking tasks as completed.
-- **Filter Tasks:** Filter tasks based on their completion status to focus on what's important.
-- **Responsive Design:** Use the app seamlessly on both desktop and mobile devices.
+- Add, complete, and remove tasks
+- Filter tasks by all, to do, and done
+- See remaining work and completion progress at a glance
+- Use the static demo without an account or a backend; tasks are saved in this browser
+- Run the API-backed version with PostgreSQL for server-side persistence
+- Responsive layout, keyboard-friendly controls, and screen-reader labels
 
-## Installation
+## Static demo
 
-To set up the application on your local machine, follow these steps:
+Open `index.html`, or serve the project root with any static file server. For example:
 
-1. **Clone the Repository:**
+```sh
+python3 -m http.server 8080
+```
 
-    ```bash
-    git clone https://github.com/mhaseebaslam/oamk-todo-assignment.git
-    ```
+Then visit `http://localhost:8080`. GitHub Pages serves this static version automatically.
 
-2. **Navigate to the Project Directory:**
+## PostgreSQL-backed version
 
-    ```bash
-    cd oamk-todo-assignment
-    ```
+1. Create a PostgreSQL database, for example `todo_db`.
+2. Create `backend/.env` from the sample and set your database connection string:
 
-3. **Install the Dependencies:**
+   ```sh
+   cp backend/.env.example backend/.env
+   ```
 
-    ```bash
-    npm install
-    ```
+   ```dotenv
+   PORT=3000
+   DATABASE_URL=postgresql://username:password@localhost:5432/todo_db
+   ```
 
-## Setting Up Your Environment Variables
+3. Install and start the backend:
 
-For your Todo application to work correctly, you'll need to properly configure the environment variables:
+   ```sh
+   cd backend
+   npm install
+   npm run dev
+   ```
 
-1. Create a `.env` file in the `backend` folder with the following content:
+4. Visit `http://localhost:3000`. The server creates the `todos` table on startup and serves the API-backed app.
 
-    ```plaintext
-    PORT=3000
-    DATABASE_URL=postgresql://username:password@localhost:5432/todo_db
-    ```
-
-2. Replace the `DATABASE_URL` value with your actual PostgreSQL connection details:
-    1. Replace `username` with your PostgreSQL username
-    2. Replace `password` with your PostgreSQL password
-    3. If your database is named differently than `todo_db`, update that part as well
-    4. If PostgreSQL is running on a different port than the default `5432`, update that too
-
-For example, if your PostgreSQL username is "postgres", password is "mysecretpassword", and you want to use a database called "todo_app", your connection string would look like:
-
-    ```plaintext
-    DATABASE_URL=postgresql://postgres:mysecretpassword@localhost:5432/todo_app
-    ```
-
-## Creating the PostgreSQL Database
-
-Before running the application, make sure you've created the database:
-
-1. Connect to PostgreSQL using the command line or a tool like pgAdmin
-2. Create the database:
-
-    ```sql
-    CREATE DATABASE todo_db;
-    ```
-
-(Or use whatever database name you specified in your DATABASE_URL)
-
-## Usage
-
-To start and use the application, follow these steps:
-
-1. **Install the backend dependencies:**
-
-    ```shell
-    cd backend
-    npm install
-    ```
-
-2. **Start the server:**
-
-    ```shell
-    npm run dev
-    ```
-
-3. The server will automatically create the necessary `todos` table in your database when it starts up.
-4. Access your Todo application at:
-
-    ```plaintext
-    http://localhost:3000
-    ```
-
-## Troubleshooting Database Connection
-
-If you encounter database connection issues:
-
-1. Verify your PostgreSQL service is running.
-2. Check that your username and password are correct.
-3. Ensure the database exists.
-4. Make sure your PostgreSQL server allows connections from your application.
-
-The application is now set up to use port 3000 by default and will connect to your PostgreSQL database using the connection string you provided. All your todos will be persisted in the database, so they'll remain available even after restarting the application or refreshing the browser.
-
-## Logic Behind the Code
-
-This application is built using modern web development technologies and follows the MVC (Model-View-Controller) architecture to ensure maintainability and separation of concerns. The front-end is developed using React, providing a dynamic and responsive user interface. The back-end is powered by Node.js and Express, handling server-side logic and API requests. The application also uses MongoDB for data storage, ensuring efficient and scalable data management.
-
-## Live Demo
-
-You can see a live demo of the application [here](https://mhaseebaslam.github.io/oamk-todo-assignment/). Check it out to see the app in action!
-
-## Feedback/Suggestions
-
-Your feedback and suggestions are highly appreciated! If you have any ideas on how to improve the application, please open an issue on the GitHub repository or contact me directly.
-
-## How to Contribute
-
-Contributions are welcome! If you would like to contribute to this project, please fork the repository, make your changes, and create a pull request. Your contributions will help make this application even better.
+The API is available at `GET /api/todos`, `POST /api/todos`, `PUT /api/todos/:id`, and `DELETE /api/todos/:id`. A lightweight status endpoint is available at `GET /api/health`.
 
 ## License
 
-This project is licensed under the MIT License. For more details, see the [LICENSE](LICENSE) file.
+This project is available under the MIT License. See [LICENSE](LICENSE).
